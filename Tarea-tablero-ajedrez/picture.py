@@ -39,8 +39,8 @@ class Picture:
     joinRigth = []
     i = 0
     while i < len(self.img):
-    joinRigth.append(self.img[i] + p.img[i])
-    i++;
+        joinRigth.append(self.img[i] + p.img[i])
+        i++;
     return Picture(joinRigth)
 
   def up(self, p):
