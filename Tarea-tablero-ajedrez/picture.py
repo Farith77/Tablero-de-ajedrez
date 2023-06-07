@@ -40,7 +40,7 @@ class Picture:
     i = 0
     while i < len(self.img):
         joinRigth.append(self.img[i] + p.img[i])
-        i++;
+        i += 1
     return Picture(joinRigth)
 
   def up(self, p):
