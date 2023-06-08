@@ -23,7 +23,7 @@ class Picture:
     horizontal =[]
     for value in self.img:
         horizontal.append(value[::-1])
-    return Picture(horizontal)
+    return horizontal
 
   def negative(self):
     """ Devuelve un negativo de la imagen """
@@ -31,7 +31,7 @@ class Picture:
     for row in self.img:
         negativo_row = [self._invColor(pixel) for pixel in row]
         negativo_imagen.append(negativo_row)
-    return Picture(negativo_imagen)
+    return negativo_imagen
 
   def join(self, p):
     """ Devuelve una nueva figura poniendo la figura del argumento 
@@ -44,33 +44,58 @@ class Picture:
     return Picture(joinRigth)
 
   def up(self, p):
-    new_img = p.img + self.img
-    return Picture(new_img)
+    newimg = []
+    for r in self.img:
+      newimg.append(r)
+
+    for r in p.img:
+      newimg.append(r)
+    return Picture(newimg)
 
   def under(self, p):
     """ Devuelve una nueva figura poniendo la figura p sobre la
         figura actual """
-    if actual == "":
-        return p
-    else:
-        return self
+    newimg = []
+    for r in p.img:
+      newimg.append(r)
+
+    for r in self.img:
+      newimg.append(r)
+
+    return Picture(newimg)
   
   def horizontalRepeat(self, n):
     """ Devuelve una nueva figura repitiendo la figura actual al costado
         la cantidad de veces que indique el valor de n """
-    repeated_figure = self * n
-    return Picture(repeated_figure)
+    newimg = []
+
+    for r in self.img:
+      x = 1
+      row = ""
+      while x <= n:
+        row += r
+        x += 1
+      newimg.append(row)
+
+    return Picture(newimg)
 
   def verticalRepeat(self, n):
-    repeated_figure = self + "\n" + (self + "\n") * (n - 1)
-    return Picture(repeated_figure)
+    newimg = []
+
+    x = 1
+    while x <= n:
+      for r in self.img:
+        newimg.append(r)
+      x += 1
+
+    return Picture(newimg)
 
   #Extra: Sólo para realmente viciosos 
   def rotate(self):
     """Devuelve una figura rotada en 90 grados, puede ser en sentido horario
     o antihorario"""
     rotated_figure = ""
-    lines = actual.split("\n")
+    lines = self.split("\n")
     max_length = max(len(line) for line in lines)
     for i in range(max_length):
         for j in range(len(lines)-1, -1, -1):
@@ -79,5 +104,5 @@ class Picture:
             else:
                 rotated_figure += " "
         rotated_figure += "\n"
-    return Picture(rotated_figure.strip())
+    return rotated_figure.strip()
 
