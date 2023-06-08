@@ -27,21 +27,28 @@ class Picture:
 
   def negative(self):
     """ Devuelve un negativo de la imagen """
-    negativo_imagen = []
-    for row in self.img:
-        negativo_row = [self._invColor(pixel) for pixel in row]
-        negativo_imagen.append(negativo_row)
-    return negativo_imagen
+    newimg = []
+
+    for r in self.img:
+      x = 0
+      row = ""
+      while x < len(r):
+        row += self._invColor(r[x])
+        x += 1
+      newimg.append(row)
+    return Picture(newimg)
 
   def join(self, p):
     """ Devuelve una nueva figura poniendo la figura del argumento 
         al lado derecho de la figura actual """
-    joinRigth = []
-    i = 0
-    while i < len(self.img):
-        joinRigth.append(self.img[i] + p.img[i])
-        i += 1
-    return Picture(joinRigth)
+    newimg = []
+    x = 0
+    while x < len(self.img):
+      newimg.append(self.img[x] + p.img[x])
+      x += 1
+
+    return Picture(newimg)
+
 
   def up(self, p):
     newimg = []
