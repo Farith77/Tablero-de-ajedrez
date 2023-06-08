@@ -21,7 +21,7 @@ class Picture:
   def horizontalMirror(self):
     """ Devuelve el espejo horizontal de la imagen """
     length = len(self.img[0])
-    newimg = []
+    horizontal = []
 
     for r in self.img:
       row = ""
@@ -29,13 +29,13 @@ class Picture:
       while x < length:
         row += r[length -1 -x]
         x += 1
-      newimg.append(row)
+      horizontal.append(row)
 
-    return Picture(newimg)
+    return Picture(horizontal)
 
   def negative(self):
     """ Devuelve un negativo de la imagen """
-    newimg = []
+    negativo = []
 
     for r in self.img:
       x = 0
@@ -43,46 +43,46 @@ class Picture:
       while x < len(r):
         row += self._invColor(r[x])
         x += 1
-      newimg.append(row)
-    return Picture(newimg)
+      negativo.append(row)
+    return Picture(negativo)
 
   def join(self, p):
     """ Devuelve una nueva figura poniendo la figura del argumento 
         al lado derecho de la figura actual """
-    newimg = []
+    derecho = []
     x = 0
     while x < len(self.img):
-      newimg.append(self.img[x] + p.img[x])
+      derecho.append(self.img[x] + p.img[x])
       x += 1
 
-    return Picture(newimg)
+    return Picture(derecho)
 
 
   def up(self, p):
-    newimg = []
+    arriba = []
     for r in self.img:
-      newimg.append(r)
+      arriba.append(r)
 
     for r in p.img:
-      newimg.append(r)
-    return Picture(newimg)
+      arriba.append(r)
+    return Picture(arriba)
 
   def under(self, p):
     """ Devuelve una nueva figura poniendo la figura p sobre la
         figura actual """
-    newimg = []
+    abajo = []
     for r in p.img:
-      newimg.append(r)
+      abajo.append(r)
 
     for r in self.img:
-      newimg.append(r)
+      abajo.append(r)
 
-    return Picture(newimg)
+    return Picture(abajo)
   
   def horizontalRepeat(self, n):
     """ Devuelve una nueva figura repitiendo la figura actual al costado
         la cantidad de veces que indique el valor de n """
-    newimg = []
+    horizontal = []
 
     for r in self.img:
       x = 1
@@ -90,36 +90,38 @@ class Picture:
       while x <= n:
         row += r
         x += 1
-      newimg.append(row)
+      horizontal.append(row)
 
-    return Picture(newimg)
+    return Picture(horizontal)
 
   def verticalRepeat(self, n):
-    newimg = []
+    vertical = []
 
     x = 1
     while x <= n:
       for r in self.img:
-        newimg.append(r)
+        vertical.append(r)
       x += 1
 
-    return Picture(newimg)
+    return Picture(vertical)
 
   #Extra: Sólo para realmente viciosos 
   def rotate(self):
     """Devuelve una figura rotada en 90 grados, puede ser en sentido horario
     o antihorario"""
-    rotated_figure = ""
-    lines = self.split("\n")
-    max_length = max(len(line) for line in lines)
-    for i in range(max_length):
-        for j in range(len(lines)-1, -1, -1):
-            if i < len(lines[j]):
-                rotated_figure += lines[j][i]
-            else:
-                rotated_figure += " "
-        rotated_figure += "\n"
-    return rotated_figure.strip()
+    rotada = []
+    i = 0
+    while (i < len(self.img[0])):
+      row = ""
+      j = len(self.img) - 1
+      while (j >= 0):
+        aux = self.img[j]
+        row += aux[i]
+        j -= 1
+      rotada.append(row)
+      i += 1
+      
+    return Picture(rotada)
 
   def behind(self, p):
     behindColor = p.img[0][0]
